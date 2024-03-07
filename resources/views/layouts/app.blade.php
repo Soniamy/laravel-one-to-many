@@ -26,6 +26,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('admin.posts.index')}}">Post</a>
                             </li>
+                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.categories.index') }}">Categorie</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Link 3</a>
                             </li>
