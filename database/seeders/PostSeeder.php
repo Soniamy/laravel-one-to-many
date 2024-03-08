@@ -7,38 +7,38 @@ use Illuminate\Database\Seeder;
 
 // Models
 use App\Models\Post;
+use App\Models\Category;
 
 // Helpers
 use Illuminate\Support\Str;
+
+// Helpers
+use Illuminate\Support\Facades\Schema;
 
 class PostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+   public function run(): void
     {
-         Post::truncate();
+        Schema::disableForeignKeyConstraints();
+        Post::truncate();
+        Schema::enableForeignKeyConstraints();
 
         for ($i = 0; $i < 10; $i++) {
-            $post = new Post();
             $title = fake()->sentence();
+        
             $slug = Str::slug($title);
-            $post->title = $title;
-            $post->slug = $slug;
-            $post->content = fake()->paragraph();
-            $post->save();
 
-            // PROVO ANCHE
+            $randomCategory = Category::inRandomOrder()->first();
 
-            $titleForMassAssignment = fake()->sentence();
-            $slugForMassAssignment = Str::slug($titleForMassAssignment);
-            $postWithMassAssignment = Post::create([
-                'title' => $titleForMassAssignment,
-                'slug' => $slugForMassAssignment,
+            $post = Post::create([
+                'title' => $title,
+                'slug' => $slug,
                 'content' => fake()->paragraph(),
+                'category_id' => $randomCategory->id,
             ]);
         }
     }
-    
 }

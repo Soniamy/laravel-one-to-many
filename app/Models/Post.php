@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+     use HasFactory;
 
       protected $fillable = [
         'title',
@@ -14,4 +15,9 @@ class Post extends Model
         'content',
         'category_id'
     ];
+    //Relazione//
+     public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

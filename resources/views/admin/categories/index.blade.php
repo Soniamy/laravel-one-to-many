@@ -32,6 +32,7 @@
                                      <tr>
                                     <th scope="row">{{ $category->id }}</th>
                                     <td>{{ $category->title }}</td>
+
                                     <td>{{ $category->created_at->format('d/m/Y') }}</td>
                                     <td>{{ $category->created_at->format('H:i') }}</td>
                                     <td>

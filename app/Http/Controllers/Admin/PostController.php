@@ -5,8 +5,17 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-//Model
+// Models
 use App\Models\Post;
+use App\Models\Category;
+
+// Helpers
+use Illuminate\Support\Str;
+
+// Request
+use App\Http\Requests\Post\StoreRequest as PostStoreRequest;
+use App\Http\Requests\Post\UpdateRequest as PostUpdateRequest;
+
 
 class PostController extends Controller
 {
@@ -25,15 +34,28 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+       $categories = Category::all();
+
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PostStoreRequest $request)
     {
-        //
+        $postData = $request->validated();
+
+        $slug = Str::slug($postData['title']);
+         $post = Post::create([
+            'title' => $postData['title'],
+            'slug' => $slug,
+            'content' => $postData['content'],
+            'category_id' => $postData['category_id'],
+        ]);
+
+        return redirect()->route('admin.posts.show', compact('post'));
+        
     }
 
     /**
@@ -51,15 +73,27 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::all();
+
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(PostUpdateRequest $request, Post $post)
     {
-        //
+         $postData = $request->validated();
+
+        $slug = Str::slug($postData['title']);
+        $post->update([
+            'title' => $postData['title'],
+            'slug' => $slug,
+            'content' => $postData['content'],
+            'category_id' => $postData['category_id'],
+        ]);
+
+        return redirect()->route('admin.posts.show', compact('post'));
     }
 
     /**
@@ -67,6 +101,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+       $post->delete();
+
+        return redirect()->route('admin.posts.index');
     }
 }

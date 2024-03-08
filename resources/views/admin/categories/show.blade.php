@@ -21,15 +21,9 @@
                         Tutti i post associati a questa categoria
                     </h2>
 
-                    <ul>
-                        @foreach ($category->posts as $post)
-                            <li>
-                                <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}">
-                                    {{ $post->title }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    <h1 class="text-center ">
+                          {{$category->title}}
+                    </h1>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($allCategories as $singleCategory) {
-            $category = Category::create([
+            $category= Category::create([
                 'title' => $singleCategory,
                 'slug' => str()->slug($singleCategory),
             ]);
