@@ -18,12 +18,19 @@
             <div class="card">
                 <div class="card-body">
                     <h2 class="text-center text-success">
-                        Tutti i post associati a questa categoria
+                        Tutti i post di questa categoria
                     </h2>
 
-                    <h1 class="text-center ">
-                          {{$category->title}}
-                    </h1>
+                  <ul>
+                    @foreach ($category->posts as $post )
+                        <li>
+                            <a href="{{route('admin.posts.show', ['post' => $post->id])}}">
+                            {{$post->title}}</a>
+                        </li>
+                    @endforeach
+                  </ul>
+
+
                 </div>
             </div>
         </div>
